@@ -1,0 +1,19 @@
+{
+  "name": "opalescent-prism-bot",
+  "version": "1.0.0",
+  "description": "Prism - Official custom Discord bot for Opalescent Esports",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "deploy-commands": "node src/services/commandRegistryService.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  },
+  "author": "Opalescent Esports",
+  "license": "ISC"
+}
