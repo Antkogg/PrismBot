@@ -1,4 +1,4 @@
-import { Events } from 'discord.js';
+import { Events, AttachmentBuilder } from 'discord.js';
 import { getWelcomeLogo } from '../repositories/welcomeRepository.js';
 import { buildLeaveEmbed } from '../components/embeds/welcomeEmbed.js';
 import logger from '../utils/logger.js';
@@ -19,10 +19,10 @@ export default {
                 return;
             }
 
-            const logoUrl = getWelcomeLogo();
-            const embed = buildLeaveEmbed(member, logoUrl);
+            const attachment = new AttachmentBuilder('./banner.jpg');
+            const embed = buildLeaveEmbed(member, 'attachment://banner.jpg');
 
-            await channel.send({ embeds: [embed] });
+            await channel.send({ embeds: [embed], files: [attachment] });
             logger.info(`[guildMemberRemove] Sent leave message for ${member.user.tag}`);
         } catch (error) {
             logger.error(`[guildMemberRemove] Failed to send leave message for ${member.user.tag}`, error);

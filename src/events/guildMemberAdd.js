@@ -1,4 +1,4 @@
-import { Events } from 'discord.js';
+import { Events, AttachmentBuilder } from 'discord.js';
 import { getWelcomeLogo } from '../repositories/welcomeRepository.js';
 import { buildWelcomeEmbed, buildWelcomeComponents } from '../components/embeds/welcomeEmbed.js';
 import logger from '../utils/logger.js';
@@ -19,11 +19,11 @@ export default {
                 return;
             }
 
-            const logoUrl = getWelcomeLogo();
-            const embed = buildWelcomeEmbed(member, logoUrl);
+            const attachment = new AttachmentBuilder('./banner.jpg');
+            const embed = buildWelcomeEmbed(member, 'attachment://banner.jpg');
             const components = buildWelcomeComponents();
 
-            await channel.send({ content: `<@${member.id}>`, embeds: [embed], components: [components] });
+            await channel.send({ content: `<@${member.id}>`, embeds: [embed], components: [components], files: [attachment] });
             logger.info(`[guildMemberAdd] Sent welcome message for ${member.user.tag}`);
         } catch (error) {
             logger.error(`[guildMemberAdd] Failed to send welcome message for ${member.user.tag}`, error);

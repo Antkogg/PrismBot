@@ -14,8 +14,8 @@ export default {
         await startupCleanup(client);
 
         try {
-            const modLogChannelId = '1520243934025224215';
-            const channel = await client.channels.fetch(modLogChannelId).catch(() => null);
+            const statusChannelId = '1522494120411660299';
+            const channel = await client.channels.fetch(statusChannelId).catch(() => null);
             if (channel && channel.isTextBased()) {
                 await channel.send('🟢 **Prism Bot is now online.**');
             }
