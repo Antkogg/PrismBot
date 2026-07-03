@@ -56,6 +56,13 @@ const handleShutdown = async (signal) => {
     } catch (err) {
         logger.error('Failed to send shutdown message to mod logs.', err);
     } finally {
+        try {
+            const fs = await import('node:fs');
+            const path = await import('node:path');
+            fs.writeFileSync(path.join(process.cwd(), 'data', 'downtime.json'), JSON.stringify({ shutdown: Date.now() }));
+        } catch (e) {
+            logger.error('Failed to write downtime file', e);
+        }
         client.destroy();
         process.exit(0);
     }
