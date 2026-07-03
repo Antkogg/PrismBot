@@ -41,3 +41,25 @@ const init = async () => {
 };
 
 init();
+
+// Graceful shutdown handling
+const handleShutdown = async (signal) => {
+    logger.info(`Received ${signal}. Shutting down gracefully...`);
+    try {
+        if (client.isReady()) {
+            const modLogChannelId = '1520243934025224215';
+            const channel = await client.channels.fetch(modLogChannelId).catch(() => null);
+            if (channel && channel.isTextBased()) {
+                await channel.send('🔴 **Prism Bot is powering down for an update.**');
+            }
+        }
+    } catch (err) {
+        logger.error('Failed to send shutdown message to mod logs.', err);
+    } finally {
+        client.destroy();
+        process.exit(0);
+    }
+};
+
+process.on('SIGINT', () => handleShutdown('SIGINT'));
+process.on('SIGTERM', () => handleShutdown('SIGTERM'));

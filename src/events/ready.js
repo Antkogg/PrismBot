@@ -12,5 +12,15 @@ export default {
 
         // Clean up any orphaned temp VCs on startup
         await startupCleanup(client);
+
+        try {
+            const modLogChannelId = '1520243934025224215';
+            const channel = await client.channels.fetch(modLogChannelId).catch(() => null);
+            if (channel && channel.isTextBased()) {
+                await channel.send('🟢 **Prism Bot is now online.**');
+            }
+        } catch (err) {
+            logger.error('Failed to send startup message to mod logs.', err);
+        }
     }
 };
