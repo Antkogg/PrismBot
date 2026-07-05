@@ -14,9 +14,6 @@ export default {
         await startupCleanup(client);
 
         try {
-            // Add a small delay so if the host is doing a zero-downtime deployment,
-            // the old bot has time to send its "powering down" message first.
-            await new Promise(resolve => setTimeout(resolve, 5000));
             let downtimeStr = '';
             try {
                 const fs = await import('node:fs');
