@@ -1,4 +1,5 @@
 import { Events } from 'discord.js';
+// Test comment to trigger a deployment
 import logger from '../utils/logger.js';
 import botConfig from '../config/botConfig.js';
 import { startupCleanup } from '../services/vcService.js';
