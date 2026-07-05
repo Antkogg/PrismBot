@@ -63,6 +63,13 @@ const handleShutdown = async (signal) => {
         } catch (e) {
             logger.error('Failed to write downtime file', e);
         }
+        try {
+            const { getDb } = await import('./database/db.js');
+            const db = getDb();
+            if (db) db.close();
+        } catch (e) {
+            logger.error('Failed to close database', e);
+        }
         client.destroy();
         process.exit(0);
     }
